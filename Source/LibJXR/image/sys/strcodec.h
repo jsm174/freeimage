@@ -679,3 +679,7 @@ void flushToByte(BitIOInfo* pIO);
 //    pIO->uiAccumulator = LOAD16(pIO->pbCurrent) & ((U32)(-1) >> pIO->cBitsUsed);\
 
 void OutputPerfTimerReport(CWMImageStrCodec *pState);
+
+#if !defined(WIN32) && !defined(_BIG__ENDIAN_)
+U32 _byteswap_ulong(U32 bits);
+#endif
