@@ -27,7 +27,7 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v140_xp</PlatformToolset>
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -39,7 +39,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v140_xp</PlatformToolset>
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -95,7 +95,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <OmitFramePointers>true</OmitFramePointers>
-      <AdditionalIncludeDirectories>./;./IlmImf;./Imath;./IexMath;./Iex;./Half;./IlmThread;../ZLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./;./Iex;./IlmThread;./Imath;./OpenEXR;../ZLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
@@ -108,9 +108,9 @@
       <CompileAs>Default</CompileAs>
       <UseUnicodeForAssemblerListing>false</UseUnicodeForAssemblerListing>
       <DebugInformationFormat>None</DebugInformationFormat>
-      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
-      <FloatingPointModel>Fast</FloatingPointModel>
       <BufferSecurityCheck>false</BufferSecurityCheck>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -131,7 +131,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <OmitFramePointers>true</OmitFramePointers>
-      <AdditionalIncludeDirectories>./;./IlmImf;./Imath;./IexMath;./Iex;./Half;./IlmThread;../ZLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./;./Iex;./IlmThread;./Imath;./OpenEXR;../ZLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
@@ -145,8 +145,8 @@
       <DisableSpecificWarnings>4800;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <UseUnicodeForAssemblerListing>false</UseUnicodeForAssemblerListing>
       <DebugInformationFormat>None</DebugInformationFormat>
-      <FloatingPointModel>Fast</FloatingPointModel>
       <BufferSecurityCheck>false</BufferSecurityCheck>
+      <FloatingPointModel>Fast</FloatingPointModel>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -160,7 +160,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>./;./IlmImf;./Imath;./IexMath;./Iex;./Half;./IlmThread;../ZLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./;./Iex;./IlmThread;./Imath;./OpenEXR;../ZLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -187,7 +187,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>./;./IlmImf;./Imath;./IexMath;./Iex;./Half;./IlmThread;../ZLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./;./Iex;./IlmThread;./Imath;./OpenEXR;../ZLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -210,234 +210,148 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="IexMath\IexMathFpu.cpp" />
-    <ClCompile Include="IlmImf\b44ExpLogTable.cpp" />
-    <ClCompile Include="IlmImf\ImfAcesFile.cpp" />
-    <ClCompile Include="IlmImf\ImfAttribute.cpp" />
-    <ClCompile Include="IlmImf\ImfB44Compressor.cpp" />
-    <ClCompile Include="IlmImf\ImfBoxAttribute.cpp" />
-    <ClCompile Include="IlmImf\ImfChannelList.cpp" />
-    <ClCompile Include="IlmImf\ImfChannelListAttribute.cpp" />
-    <ClCompile Include="IlmImf\ImfChromaticities.cpp" />
-    <ClCompile Include="IlmImf\ImfChromaticitiesAttribute.cpp" />
-    <ClCompile Include="IlmImf\ImfCompositeDeepScanLine.cpp" />
-    <ClCompile Include="IlmImf\ImfCompressionAttribute.cpp" />
-    <ClCompile Include="IlmImf\ImfCompressor.cpp" />
-    <ClCompile Include="IlmImf\ImfConvert.cpp" />
-    <ClCompile Include="IlmImf\ImfCRgbaFile.cpp" />
-    <ClCompile Include="IlmImf\ImfDeepCompositing.cpp" />
-    <ClCompile Include="IlmImf\ImfDeepFrameBuffer.cpp" />
-    <ClCompile Include="IlmImf\ImfDeepImageStateAttribute.cpp" />
-    <ClCompile Include="IlmImf\ImfDeepScanLineInputFile.cpp" />
-    <ClCompile Include="IlmImf\ImfDeepScanLineInputPart.cpp" />
-    <ClCompile Include="IlmImf\ImfDeepScanLineOutputFile.cpp" />
-    <ClCompile Include="IlmImf\ImfDeepScanLineOutputPart.cpp" />
-    <ClCompile Include="IlmImf\ImfDeepTiledInputFile.cpp" />
-    <ClCompile Include="IlmImf\ImfDeepTiledInputPart.cpp" />
-    <ClCompile Include="IlmImf\ImfDeepTiledOutputFile.cpp" />
-    <ClCompile Include="IlmImf\ImfDeepTiledOutputPart.cpp" />
-    <ClCompile Include="IlmImf\ImfDoubleAttribute.cpp" />
-    <ClCompile Include="IlmImf\ImfDwaCompressor.cpp" />
-    <ClCompile Include="IlmImf\ImfEnvmap.cpp" />
-    <ClCompile Include="IlmImf\ImfEnvmapAttribute.cpp" />
-    <ClCompile Include="IlmImf\ImfFastHuf.cpp" />
-    <ClCompile Include="IlmImf\ImfFloatAttribute.cpp" />
-    <ClCompile Include="IlmImf\ImfFloatVectorAttribute.cpp" />
-    <ClCompile Include="IlmImf\ImfFrameBuffer.cpp" />
-    <ClCompile Include="IlmImf\ImfFramesPerSecond.cpp" />
-    <ClCompile Include="IlmImf\ImfGenericInputFile.cpp" />
-    <ClCompile Include="IlmImf\ImfGenericOutputFile.cpp" />
-    <ClCompile Include="IlmImf\ImfHeader.cpp" />
-    <ClCompile Include="IlmImf\ImfHuf.cpp" />
-    <ClCompile Include="IlmImf\ImfInputFile.cpp" />
-    <ClCompile Include="IlmImf\ImfInputPart.cpp" />
-    <ClCompile Include="IlmImf\ImfInputPartData.cpp" />
-    <ClCompile Include="IlmImf\ImfIntAttribute.cpp" />
-    <ClCompile Include="IlmImf\ImfIO.cpp" />
-    <ClCompile Include="IlmImf\ImfKeyCode.cpp" />
-    <ClCompile Include="IlmImf\ImfKeyCodeAttribute.cpp" />
-    <ClCompile Include="IlmImf\ImfLineOrderAttribute.cpp" />
-    <ClCompile Include="IlmImf\ImfLut.cpp" />
-    <ClCompile Include="IlmImf\ImfMatrixAttribute.cpp" />
-    <ClCompile Include="IlmImf\ImfMisc.cpp" />
-    <ClCompile Include="IlmImf\ImfMultiPartInputFile.cpp" />
-    <ClCompile Include="IlmImf\ImfMultiPartOutputFile.cpp" />
-    <ClCompile Include="IlmImf\ImfMultiView.cpp" />
-    <ClCompile Include="IlmImf\ImfOpaqueAttribute.cpp" />
-    <ClCompile Include="IlmImf\ImfOutputFile.cpp" />
-    <ClCompile Include="IlmImf\ImfOutputPart.cpp" />
-    <ClCompile Include="IlmImf\ImfOutputPartData.cpp" />
-    <ClCompile Include="IlmImf\ImfPartType.cpp" />
-    <ClCompile Include="IlmImf\ImfPizCompressor.cpp" />
-    <ClCompile Include="IlmImf\ImfPreviewImage.cpp" />
-    <ClCompile Include="IlmImf\ImfPreviewImageAttribute.cpp" />
-    <ClCompile Include="IlmImf\ImfPxr24Compressor.cpp" />
-    <ClCompile Include="IlmImf\ImfRational.cpp" />
-    <ClCompile Include="IlmImf\ImfRationalAttribute.cpp" />
-    <ClCompile Include="IlmImf\ImfRgbaFile.cpp" />
-    <ClCompile Include="IlmImf\ImfRgbaYca.cpp" />
-    <ClCompile Include="IlmImf\ImfRle.cpp" />
-    <ClCompile Include="IlmImf\ImfRleCompressor.cpp" />
-    <ClCompile Include="IlmImf\ImfScanLineInputFile.cpp" />
-    <ClCompile Include="IlmImf\ImfStandardAttributes.cpp" />
-    <ClCompile Include="IlmImf\ImfStdIO.cpp" />
-    <ClCompile Include="IlmImf\ImfStringAttribute.cpp" />
-    <ClCompile Include="IlmImf\ImfStringVectorAttribute.cpp" />
-    <ClCompile Include="IlmImf\ImfSystemSpecific.cpp" />
-    <ClCompile Include="IlmImf\ImfTestFile.cpp" />
-    <ClCompile Include="IlmImf\ImfThreading.cpp" />
-    <ClCompile Include="IlmImf\ImfTileDescriptionAttribute.cpp" />
-    <ClCompile Include="IlmImf\ImfTiledInputFile.cpp" />
-    <ClCompile Include="IlmImf\ImfTiledInputPart.cpp" />
-    <ClCompile Include="IlmImf\ImfTiledMisc.cpp" />
-    <ClCompile Include="IlmImf\ImfTiledOutputFile.cpp" />
-    <ClCompile Include="IlmImf\ImfTiledOutputPart.cpp" />
-    <ClCompile Include="IlmImf\ImfTiledRgbaFile.cpp" />
-    <ClCompile Include="IlmImf\ImfTileOffsets.cpp" />
-    <ClCompile Include="IlmImf\ImfTimeCode.cpp" />
-    <ClCompile Include="IlmImf\ImfTimeCodeAttribute.cpp" />
-    <ClCompile Include="IlmImf\ImfVecAttribute.cpp" />
-    <ClCompile Include="IlmImf\ImfVersion.cpp" />
-    <ClCompile Include="IlmImf\ImfWav.cpp" />
-    <ClCompile Include="IlmImf\ImfZip.cpp" />
-    <ClCompile Include="IlmImf\ImfZipCompressor.cpp" />
-    <ClCompile Include="Imath\ImathBox.cpp" />
+    <ClCompile Include="Iex\IexBaseExc.cpp" />
+    <ClCompile Include="Iex\IexMathFloatExc.cpp" />
+    <ClCompile Include="Iex\IexMathFpu.cpp" />
+    <ClCompile Include="Iex\IexThrowErrnoExc.cpp" />
+    <ClCompile Include="IlmThread\IlmThread.cpp" />
+    <ClCompile Include="IlmThread\IlmThreadPool.cpp" />
+    <ClCompile Include="IlmThread\IlmThreadSemaphore.cpp" />
+    <ClCompile Include="IlmThread\IlmThreadSemaphoreOSX.cpp" />
+    <ClCompile Include="IlmThread\IlmThreadSemaphorePosix.cpp" />
+    <ClCompile Include="IlmThread\IlmThreadSemaphorePosixCompat.cpp" />
+    <ClCompile Include="IlmThread\IlmThreadSemaphoreWin32.cpp" />
+    <ClCompile Include="Imath\half.cpp" />
     <ClCompile Include="Imath\ImathColorAlgo.cpp" />
     <ClCompile Include="Imath\ImathFun.cpp" />
     <ClCompile Include="Imath\ImathMatrixAlgo.cpp" />
     <ClCompile Include="Imath\ImathRandom.cpp" />
-    <ClCompile Include="Imath\ImathShear.cpp" />
-    <ClCompile Include="Imath\ImathVec.cpp" />
-    <ClCompile Include="Iex\IexBaseExc.cpp" />
-    <ClCompile Include="Iex\IexThrowErrnoExc.cpp" />
-    <ClCompile Include="Half\half.cpp" />
-    <ClCompile Include="IlmThread\IlmThread.cpp" />
-    <ClCompile Include="IlmThread\IlmThreadMutex.cpp" />
-    <ClCompile Include="IlmThread\IlmThreadPool.cpp" />
-    <ClCompile Include="IlmThread\IlmThreadSemaphore.cpp" />
-    <ClCompile Include="IexMath\IexMathFloatExc.cpp" />
+    <ClCompile Include="OpenEXR\ImfAcesFile.cpp" />
+    <ClCompile Include="OpenEXR\ImfAttribute.cpp" />
+    <ClCompile Include="OpenEXR\ImfB44Compressor.cpp" />
+    <ClCompile Include="OpenEXR\ImfBoxAttribute.cpp" />
+    <ClCompile Include="OpenEXR\ImfChannelList.cpp" />
+    <ClCompile Include="OpenEXR\ImfChannelListAttribute.cpp" />
+    <ClCompile Include="OpenEXR\ImfChromaticities.cpp" />
+    <ClCompile Include="OpenEXR\ImfChromaticitiesAttribute.cpp" />
+    <ClCompile Include="OpenEXR\ImfCompositeDeepScanLine.cpp" />
+    <ClCompile Include="OpenEXR\ImfCompressionAttribute.cpp" />
+    <ClCompile Include="OpenEXR\ImfCompressor.cpp" />
+    <ClCompile Include="OpenEXR\ImfConvert.cpp" />
+    <ClCompile Include="OpenEXR\ImfCRgbaFile.cpp" />
+    <ClCompile Include="OpenEXR\ImfDeepCompositing.cpp" />
+    <ClCompile Include="OpenEXR\ImfDeepFrameBuffer.cpp" />
+    <ClCompile Include="OpenEXR\ImfDeepImageStateAttribute.cpp" />
+    <ClCompile Include="OpenEXR\ImfDeepScanLineInputFile.cpp" />
+    <ClCompile Include="OpenEXR\ImfDeepScanLineInputPart.cpp" />
+    <ClCompile Include="OpenEXR\ImfDeepScanLineOutputFile.cpp" />
+    <ClCompile Include="OpenEXR\ImfDeepScanLineOutputPart.cpp" />
+    <ClCompile Include="OpenEXR\ImfDeepTiledInputFile.cpp" />
+    <ClCompile Include="OpenEXR\ImfDeepTiledInputPart.cpp" />
+    <ClCompile Include="OpenEXR\ImfDeepTiledOutputFile.cpp" />
+    <ClCompile Include="OpenEXR\ImfDeepTiledOutputPart.cpp" />
+    <ClCompile Include="OpenEXR\ImfDoubleAttribute.cpp" />
+    <ClCompile Include="OpenEXR\ImfDwaCompressor.cpp" />
+    <ClCompile Include="OpenEXR\ImfEnvmap.cpp" />
+    <ClCompile Include="OpenEXR\ImfEnvmapAttribute.cpp" />
+    <ClCompile Include="OpenEXR\ImfFastHuf.cpp" />
+    <ClCompile Include="OpenEXR\ImfFloatAttribute.cpp" />
+    <ClCompile Include="OpenEXR\ImfFloatVectorAttribute.cpp" />
+    <ClCompile Include="OpenEXR\ImfFrameBuffer.cpp" />
+    <ClCompile Include="OpenEXR\ImfFramesPerSecond.cpp" />
+    <ClCompile Include="OpenEXR\ImfGenericInputFile.cpp" />
+    <ClCompile Include="OpenEXR\ImfGenericOutputFile.cpp" />
+    <ClCompile Include="OpenEXR\ImfHeader.cpp" />
+    <ClCompile Include="OpenEXR\ImfHuf.cpp" />
+    <ClCompile Include="OpenEXR\ImfIDManifest.cpp" />
+    <ClCompile Include="OpenEXR\ImfIDManifestAttribute.cpp" />
+    <ClCompile Include="OpenEXR\ImfInputFile.cpp" />
+    <ClCompile Include="OpenEXR\ImfInputPart.cpp" />
+    <ClCompile Include="OpenEXR\ImfInputPartData.cpp" />
+    <ClCompile Include="OpenEXR\ImfIntAttribute.cpp" />
+    <ClCompile Include="OpenEXR\ImfIO.cpp" />
+    <ClCompile Include="OpenEXR\ImfKeyCode.cpp" />
+    <ClCompile Include="OpenEXR\ImfKeyCodeAttribute.cpp" />
+    <ClCompile Include="OpenEXR\ImfLineOrderAttribute.cpp" />
+    <ClCompile Include="OpenEXR\ImfLut.cpp" />
+    <ClCompile Include="OpenEXR\ImfMatrixAttribute.cpp" />
+    <ClCompile Include="OpenEXR\ImfMisc.cpp" />
+    <ClCompile Include="OpenEXR\ImfMultiPartInputFile.cpp" />
+    <ClCompile Include="OpenEXR\ImfMultiPartOutputFile.cpp" />
+    <ClCompile Include="OpenEXR\ImfMultiView.cpp" />
+    <ClCompile Include="OpenEXR\ImfOpaqueAttribute.cpp" />
+    <ClCompile Include="OpenEXR\ImfOutputFile.cpp" />
+    <ClCompile Include="OpenEXR\ImfOutputPart.cpp" />
+    <ClCompile Include="OpenEXR\ImfOutputPartData.cpp" />
+    <ClCompile Include="OpenEXR\ImfPartType.cpp" />
+    <ClCompile Include="OpenEXR\ImfPizCompressor.cpp" />
+    <ClCompile Include="OpenEXR\ImfPreviewImage.cpp" />
+    <ClCompile Include="OpenEXR\ImfPreviewImageAttribute.cpp" />
+    <ClCompile Include="OpenEXR\ImfPxr24Compressor.cpp" />
+    <ClCompile Include="OpenEXR\ImfRational.cpp" />
+    <ClCompile Include="OpenEXR\ImfRationalAttribute.cpp" />
+    <ClCompile Include="OpenEXR\ImfRgbaFile.cpp" />
+    <ClCompile Include="OpenEXR\ImfRgbaYca.cpp" />
+    <ClCompile Include="OpenEXR\ImfRle.cpp" />
+    <ClCompile Include="OpenEXR\ImfRleCompressor.cpp" />
+    <ClCompile Include="OpenEXR\ImfScanLineInputFile.cpp" />
+    <ClCompile Include="OpenEXR\ImfStandardAttributes.cpp" />
+    <ClCompile Include="OpenEXR\ImfStdIO.cpp" />
+    <ClCompile Include="OpenEXR\ImfStringAttribute.cpp" />
+    <ClCompile Include="OpenEXR\ImfStringVectorAttribute.cpp" />
+    <ClCompile Include="OpenEXR\ImfSystemSpecific.cpp" />
+    <ClCompile Include="OpenEXR\ImfTestFile.cpp" />
+    <ClCompile Include="OpenEXR\ImfThreading.cpp" />
+    <ClCompile Include="OpenEXR\ImfTileDescriptionAttribute.cpp" />
+    <ClCompile Include="OpenEXR\ImfTiledInputFile.cpp" />
+    <ClCompile Include="OpenEXR\ImfTiledInputPart.cpp" />
+    <ClCompile Include="OpenEXR\ImfTiledMisc.cpp" />
+    <ClCompile Include="OpenEXR\ImfTiledOutputFile.cpp" />
+    <ClCompile Include="OpenEXR\ImfTiledOutputPart.cpp" />
+    <ClCompile Include="OpenEXR\ImfTiledRgbaFile.cpp" />
+    <ClCompile Include="OpenEXR\ImfTileOffsets.cpp" />
+    <ClCompile Include="OpenEXR\ImfTimeCode.cpp" />
+    <ClCompile Include="OpenEXR\ImfTimeCodeAttribute.cpp" />
+    <ClCompile Include="OpenEXR\ImfVecAttribute.cpp" />
+    <ClCompile Include="OpenEXR\ImfVersion.cpp" />
+    <ClCompile Include="OpenEXR\ImfWav.cpp" />
+    <ClCompile Include="OpenEXR\ImfZip.cpp" />
+    <ClCompile Include="OpenEXR\ImfZipCompressor.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="IlmBaseConfig.h" />
+    <ClInclude Include="IexConfig.h" />
+    <ClInclude Include="IexConfigInternal.h" />
+    <ClInclude Include="IlmThreadConfig.h" />
+    <ClInclude Include="ImathConfig.h" />
     <ClInclude Include="OpenEXRConfig.h" />
-    <ClInclude Include="IlmImf\b44ExpLogTable.h" />
-    <ClInclude Include="IlmImf\dwaLookups.h" />
-    <ClInclude Include="IlmImf\ImfAcesFile.h" />
-    <ClInclude Include="IlmImf\ImfArray.h" />
-    <ClInclude Include="IlmImf\ImfAttribute.h" />
-    <ClInclude Include="IlmImf\ImfAutoArray.h" />
-    <ClInclude Include="IlmImf\ImfB44Compressor.h" />
-    <ClInclude Include="IlmImf\ImfBoxAttribute.h" />
-    <ClInclude Include="IlmImf\ImfChannelList.h" />
-    <ClInclude Include="IlmImf\ImfChannelListAttribute.h" />
-    <ClInclude Include="IlmImf\ImfCheckedArithmetic.h" />
-    <ClInclude Include="IlmImf\ImfChromaticities.h" />
-    <ClInclude Include="IlmImf\ImfChromaticitiesAttribute.h" />
-    <ClInclude Include="IlmImf\ImfCompositeDeepScanLine.h" />
-    <ClInclude Include="IlmImf\ImfCompression.h" />
-    <ClInclude Include="IlmImf\ImfCompressionAttribute.h" />
-    <ClInclude Include="IlmImf\ImfCompressor.h" />
-    <ClInclude Include="IlmImf\ImfConvert.h" />
-    <ClInclude Include="IlmImf\ImfCRgbaFile.h" />
-    <ClInclude Include="IlmImf\ImfDeepCompositing.h" />
-    <ClInclude Include="IlmImf\ImfDeepFrameBuffer.h" />
-    <ClInclude Include="IlmImf\ImfDeepImageState.h" />
-    <ClInclude Include="IlmImf\ImfDeepImageStateAttribute.h" />
-    <ClInclude Include="IlmImf\ImfDeepScanLineInputFile.h" />
-    <ClInclude Include="IlmImf\ImfDeepScanLineInputPart.h" />
-    <ClInclude Include="IlmImf\ImfDeepScanLineOutputFile.h" />
-    <ClInclude Include="IlmImf\ImfDeepScanLineOutputPart.h" />
-    <ClInclude Include="IlmImf\ImfDeepTiledInputFile.h" />
-    <ClInclude Include="IlmImf\ImfDeepTiledInputPart.h" />
-    <ClInclude Include="IlmImf\ImfDeepTiledOutputFile.h" />
-    <ClInclude Include="IlmImf\ImfDeepTiledOutputPart.h" />
-    <ClInclude Include="IlmImf\ImfDoubleAttribute.h" />
-    <ClInclude Include="IlmImf\ImfDwaCompressor.h" />
-    <ClInclude Include="IlmImf\ImfDwaCompressorSimd.h" />
-    <ClInclude Include="IlmImf\ImfEnvmap.h" />
-    <ClInclude Include="IlmImf\ImfEnvmapAttribute.h" />
-    <ClInclude Include="IlmImf\ImfExport.h" />
-    <ClInclude Include="IlmImf\ImfFastHuf.h" />
-    <ClInclude Include="IlmImf\ImfFloatAttribute.h" />
-    <ClInclude Include="IlmImf\ImfFloatVectorAttribute.h" />
-    <ClInclude Include="IlmImf\ImfForward.h" />
-    <ClInclude Include="IlmImf\ImfFrameBuffer.h" />
-    <ClInclude Include="IlmImf\ImfFramesPerSecond.h" />
-    <ClInclude Include="IlmImf\ImfGenericInputFile.h" />
-    <ClInclude Include="IlmImf\ImfGenericOutputFile.h" />
-    <ClInclude Include="IlmImf\ImfHeader.h" />
-    <ClInclude Include="IlmImf\ImfHuf.h" />
-    <ClInclude Include="IlmImf\ImfInputFile.h" />
-    <ClInclude Include="IlmImf\ImfInputPart.h" />
-    <ClInclude Include="IlmImf\ImfInputPartData.h" />
-    <ClInclude Include="IlmImf\ImfInputStreamMutex.h" />
-    <ClInclude Include="IlmImf\ImfInt64.h" />
-    <ClInclude Include="IlmImf\ImfIntAttribute.h" />
-    <ClInclude Include="IlmImf\ImfIO.h" />
-    <ClInclude Include="IlmImf\ImfKeyCode.h" />
-    <ClInclude Include="IlmImf\ImfKeyCodeAttribute.h" />
-    <ClInclude Include="IlmImf\ImfLineOrder.h" />
-    <ClInclude Include="IlmImf\ImfLineOrderAttribute.h" />
-    <ClInclude Include="IlmImf\ImfLut.h" />
-    <ClInclude Include="IlmImf\ImfMatrixAttribute.h" />
-    <ClInclude Include="IlmImf\ImfMisc.h" />
-    <ClInclude Include="IlmImf\ImfMultiPartInputFile.h" />
-    <ClInclude Include="IlmImf\ImfMultiPartOutputFile.h" />
-    <ClInclude Include="IlmImf\ImfMultiView.h" />
-    <ClInclude Include="IlmImf\ImfName.h" />
-    <ClInclude Include="IlmImf\ImfNamespace.h" />
-    <ClInclude Include="IlmImf\ImfOpaqueAttribute.h" />
-    <ClInclude Include="IlmImf\ImfOptimizedPixelReading.h" />
-    <ClInclude Include="IlmImf\ImfOutputFile.h" />
-    <ClInclude Include="IlmImf\ImfOutputPart.h" />
-    <ClInclude Include="IlmImf\ImfOutputPartData.h" />
-    <ClInclude Include="IlmImf\ImfOutputStreamMutex.h" />
-    <ClInclude Include="IlmImf\ImfPartHelper.h" />
-    <ClInclude Include="IlmImf\ImfPartType.h" />
-    <ClInclude Include="IlmImf\ImfPixelType.h" />
-    <ClInclude Include="IlmImf\ImfPizCompressor.h" />
-    <ClInclude Include="IlmImf\ImfPreviewImage.h" />
-    <ClInclude Include="IlmImf\ImfPreviewImageAttribute.h" />
-    <ClInclude Include="IlmImf\ImfPxr24Compressor.h" />
-    <ClInclude Include="IlmImf\ImfRational.h" />
-    <ClInclude Include="IlmImf\ImfRationalAttribute.h" />
-    <ClInclude Include="IlmImf\ImfRgba.h" />
-    <ClInclude Include="IlmImf\ImfRgbaFile.h" />
-    <ClInclude Include="IlmImf\ImfRgbaYca.h" />
-    <ClInclude Include="IlmImf\ImfRle.h" />
-    <ClInclude Include="IlmImf\ImfRleCompressor.h" />
-    <ClInclude Include="IlmImf\ImfScanLineInputFile.h" />
-    <ClInclude Include="IlmImf\ImfSimd.h" />
-    <ClInclude Include="IlmImf\ImfStandardAttributes.h" />
-    <ClInclude Include="IlmImf\ImfStdIO.h" />
-    <ClInclude Include="IlmImf\ImfStringAttribute.h" />
-    <ClInclude Include="IlmImf\ImfStringVectorAttribute.h" />
-    <ClInclude Include="IlmImf\ImfSystemSpecific.h" />
-    <ClInclude Include="IlmImf\ImfTestFile.h" />
-    <ClInclude Include="IlmImf\ImfThreading.h" />
-    <ClInclude Include="IlmImf\ImfTileDescription.h" />
-    <ClInclude Include="IlmImf\ImfTileDescriptionAttribute.h" />
-    <ClInclude Include="IlmImf\ImfTiledInputFile.h" />
-    <ClInclude Include="IlmImf\ImfTiledInputPart.h" />
-    <ClInclude Include="IlmImf\ImfTiledMisc.h" />
-    <ClInclude Include="IlmImf\ImfTiledOutputFile.h" />
-    <ClInclude Include="IlmImf\ImfTiledOutputPart.h" />
-    <ClInclude Include="IlmImf\ImfTiledRgbaFile.h" />
-    <ClInclude Include="IlmImf\ImfTileOffsets.h" />
-    <ClInclude Include="IlmImf\ImfTimeCode.h" />
-    <ClInclude Include="IlmImf\ImfTimeCodeAttribute.h" />
-    <ClInclude Include="IlmImf\ImfVecAttribute.h" />
-    <ClInclude Include="IlmImf\ImfVersion.h" />
-    <ClInclude Include="IlmImf\ImfWav.h" />
-    <ClInclude Include="IlmImf\ImfXdr.h" />
-    <ClInclude Include="IlmImf\ImfZip.h" />
-    <ClInclude Include="IlmImf\ImfZipCompressor.h" />
+    <ClInclude Include="OpenEXRConfigInternal.h" />
+    <ClInclude Include="Iex\Iex.h" />
+    <ClInclude Include="Iex\IexBaseExc.h" />
+    <ClInclude Include="Iex\IexErrnoExc.h" />
+    <ClInclude Include="Iex\IexExport.h" />
+    <ClInclude Include="Iex\IexForward.h" />
+    <ClInclude Include="Iex\IexMacros.h" />
+    <ClInclude Include="Iex\IexMathExc.h" />
+    <ClInclude Include="Iex\IexMathFloatExc.h" />
+    <ClInclude Include="Iex\IexMathFpu.h" />
+    <ClInclude Include="Iex\IexMathIeeeExc.h" />
+    <ClInclude Include="Iex\IexNamespace.h" />
+    <ClInclude Include="Iex\IexThrowErrnoExc.h" />
+    <ClInclude Include="IlmThread\IlmThread.h" />
+    <ClInclude Include="IlmThread\IlmThreadExport.h" />
+    <ClInclude Include="IlmThread\IlmThreadForward.h" />
+    <ClInclude Include="IlmThread\IlmThreadMutex.h" />
+    <ClInclude Include="IlmThread\IlmThreadNamespace.h" />
+    <ClInclude Include="IlmThread\IlmThreadPool.h" />
+    <ClInclude Include="IlmThread\IlmThreadSemaphore.h" />
+    <ClInclude Include="Imath\half.h" />
+    <ClInclude Include="Imath\halfFunction.h" />
+    <ClInclude Include="Imath\halfLimits.h" />
     <ClInclude Include="Imath\ImathBox.h" />
     <ClInclude Include="Imath\ImathBoxAlgo.h" />
     <ClInclude Include="Imath\ImathColor.h" />
     <ClInclude Include="Imath\ImathColorAlgo.h" />
     <ClInclude Include="Imath\ImathEuler.h" />
-    <ClInclude Include="Imath\ImathExc.h" />
     <ClInclude Include="Imath\ImathExport.h" />
     <ClInclude Include="Imath\ImathForward.h" />
     <ClInclude Include="Imath\ImathFrame.h" />
@@ -446,10 +360,8 @@
     <ClInclude Include="Imath\ImathFun.h" />
     <ClInclude Include="Imath\ImathGL.h" />
     <ClInclude Include="Imath\ImathGLU.h" />
-    <ClInclude Include="Imath\ImathHalfLimits.h" />
     <ClInclude Include="Imath\ImathInt64.h" />
     <ClInclude Include="Imath\ImathInterval.h" />
-    <ClInclude Include="Imath\ImathLimits.h" />
     <ClInclude Include="Imath\ImathLine.h" />
     <ClInclude Include="Imath\ImathLineAlgo.h" />
     <ClInclude Include="Imath\ImathMath.h" />
@@ -463,31 +375,124 @@
     <ClInclude Include="Imath\ImathRoots.h" />
     <ClInclude Include="Imath\ImathShear.h" />
     <ClInclude Include="Imath\ImathSphere.h" />
+    <ClInclude Include="Imath\ImathTypeTraits.h" />
     <ClInclude Include="Imath\ImathVec.h" />
     <ClInclude Include="Imath\ImathVecAlgo.h" />
-    <ClInclude Include="Iex\Iex.h" />
-    <ClInclude Include="Iex\IexBaseExc.h" />
-    <ClInclude Include="Iex\IexErrnoExc.h" />
-    <ClInclude Include="Iex\IexExport.h" />
-    <ClInclude Include="Iex\IexForward.h" />
-    <ClInclude Include="Iex\IexMacros.h" />
-    <ClInclude Include="Iex\IexMathExc.h" />
-    <ClInclude Include="Iex\IexNamespace.h" />
-    <ClInclude Include="Iex\IexThrowErrnoExc.h" />
-    <ClInclude Include="Half\eLut.h" />
-    <ClInclude Include="Half\half.h" />
-    <ClInclude Include="Half\halfFunction.h" />
-    <ClInclude Include="Half\halfLimits.h" />
-    <ClInclude Include="Half\toFloat.h" />
-    <ClInclude Include="IlmThread\IlmThread.h" />
-    <ClInclude Include="IlmThread\IlmThreadExport.h" />
-    <ClInclude Include="IlmThread\IlmThreadForward.h" />
-    <ClInclude Include="IlmThread\IlmThreadMutex.h" />
-    <ClInclude Include="IlmThread\IlmThreadNamespace.h" />
-    <ClInclude Include="IlmThread\IlmThreadPool.h" />
-    <ClInclude Include="IlmThread\IlmThreadSemaphore.h" />
-    <ClInclude Include="IexMath\IexMathFloatExc.h" />
-    <ClInclude Include="IexMath\IexMathIeeeExc.h" />
+    <ClInclude Include="Imath\toFloat.h" />
+    <ClInclude Include="OpenEXR\b44ExpLogTable.h" />
+    <ClInclude Include="OpenEXR\dwaLookups.h" />
+    <ClInclude Include="OpenEXR\ImfAcesFile.h" />
+    <ClInclude Include="OpenEXR\ImfArray.h" />
+    <ClInclude Include="OpenEXR\ImfAttribute.h" />
+    <ClInclude Include="OpenEXR\ImfAutoArray.h" />
+    <ClInclude Include="OpenEXR\ImfB44Compressor.h" />
+    <ClInclude Include="OpenEXR\ImfBoxAttribute.h" />
+    <ClInclude Include="OpenEXR\ImfChannelList.h" />
+    <ClInclude Include="OpenEXR\ImfChannelListAttribute.h" />
+    <ClInclude Include="OpenEXR\ImfCheckedArithmetic.h" />
+    <ClInclude Include="OpenEXR\ImfChromaticities.h" />
+    <ClInclude Include="OpenEXR\ImfChromaticitiesAttribute.h" />
+    <ClInclude Include="OpenEXR\ImfCompositeDeepScanLine.h" />
+    <ClInclude Include="OpenEXR\ImfCompression.h" />
+    <ClInclude Include="OpenEXR\ImfCompressionAttribute.h" />
+    <ClInclude Include="OpenEXR\ImfCompressor.h" />
+    <ClInclude Include="OpenEXR\ImfConvert.h" />
+    <ClInclude Include="OpenEXR\ImfCRgbaFile.h" />
+    <ClInclude Include="OpenEXR\ImfDeepCompositing.h" />
+    <ClInclude Include="OpenEXR\ImfDeepFrameBuffer.h" />
+    <ClInclude Include="OpenEXR\ImfDeepImageState.h" />
+    <ClInclude Include="OpenEXR\ImfDeepImageStateAttribute.h" />
+    <ClInclude Include="OpenEXR\ImfDeepScanLineInputFile.h" />
+    <ClInclude Include="OpenEXR\ImfDeepScanLineInputPart.h" />
+    <ClInclude Include="OpenEXR\ImfDeepScanLineOutputFile.h" />
+    <ClInclude Include="OpenEXR\ImfDeepScanLineOutputPart.h" />
+    <ClInclude Include="OpenEXR\ImfDeepTiledInputFile.h" />
+    <ClInclude Include="OpenEXR\ImfDeepTiledInputPart.h" />
+    <ClInclude Include="OpenEXR\ImfDeepTiledOutputFile.h" />
+    <ClInclude Include="OpenEXR\ImfDeepTiledOutputPart.h" />
+    <ClInclude Include="OpenEXR\ImfDoubleAttribute.h" />
+    <ClInclude Include="OpenEXR\ImfDwaCompressor.h" />
+    <ClInclude Include="OpenEXR\ImfDwaCompressorSimd.h" />
+    <ClInclude Include="OpenEXR\ImfEnvmap.h" />
+    <ClInclude Include="OpenEXR\ImfEnvmapAttribute.h" />
+    <ClInclude Include="OpenEXR\ImfExport.h" />
+    <ClInclude Include="OpenEXR\ImfFastHuf.h" />
+    <ClInclude Include="OpenEXR\ImfFloatAttribute.h" />
+    <ClInclude Include="OpenEXR\ImfFloatVectorAttribute.h" />
+    <ClInclude Include="OpenEXR\ImfForward.h" />
+    <ClInclude Include="OpenEXR\ImfFrameBuffer.h" />
+    <ClInclude Include="OpenEXR\ImfFramesPerSecond.h" />
+    <ClInclude Include="OpenEXR\ImfGenericInputFile.h" />
+    <ClInclude Include="OpenEXR\ImfGenericOutputFile.h" />
+    <ClInclude Include="OpenEXR\ImfHeader.h" />
+    <ClInclude Include="OpenEXR\ImfHuf.h" />
+    <ClInclude Include="OpenEXR\ImfIDManifest.h" />
+    <ClInclude Include="OpenEXR\ImfIDManifestAttribute.h" />
+    <ClInclude Include="OpenEXR\ImfInputFile.h" />
+    <ClInclude Include="OpenEXR\ImfInputPart.h" />
+    <ClInclude Include="OpenEXR\ImfInputPartData.h" />
+    <ClInclude Include="OpenEXR\ImfInputStreamMutex.h" />
+    <ClInclude Include="OpenEXR\ImfInt64.h" />
+    <ClInclude Include="OpenEXR\ImfIntAttribute.h" />
+    <ClInclude Include="OpenEXR\ImfIO.h" />
+    <ClInclude Include="OpenEXR\ImfKeyCode.h" />
+    <ClInclude Include="OpenEXR\ImfKeyCodeAttribute.h" />
+    <ClInclude Include="OpenEXR\ImfLineOrder.h" />
+    <ClInclude Include="OpenEXR\ImfLineOrderAttribute.h" />
+    <ClInclude Include="OpenEXR\ImfLut.h" />
+    <ClInclude Include="OpenEXR\ImfMatrixAttribute.h" />
+    <ClInclude Include="OpenEXR\ImfMisc.h" />
+    <ClInclude Include="OpenEXR\ImfMultiPartInputFile.h" />
+    <ClInclude Include="OpenEXR\ImfMultiPartOutputFile.h" />
+    <ClInclude Include="OpenEXR\ImfMultiView.h" />
+    <ClInclude Include="OpenEXR\ImfName.h" />
+    <ClInclude Include="OpenEXR\ImfNamespace.h" />
+    <ClInclude Include="OpenEXR\ImfOpaqueAttribute.h" />
+    <ClInclude Include="OpenEXR\ImfOptimizedPixelReading.h" />
+    <ClInclude Include="OpenEXR\ImfOutputFile.h" />
+    <ClInclude Include="OpenEXR\ImfOutputPart.h" />
+    <ClInclude Include="OpenEXR\ImfOutputPartData.h" />
+    <ClInclude Include="OpenEXR\ImfOutputStreamMutex.h" />
+    <ClInclude Include="OpenEXR\ImfPartHelper.h" />
+    <ClInclude Include="OpenEXR\ImfPartType.h" />
+    <ClInclude Include="OpenEXR\ImfPixelType.h" />
+    <ClInclude Include="OpenEXR\ImfPizCompressor.h" />
+    <ClInclude Include="OpenEXR\ImfPreviewImage.h" />
+    <ClInclude Include="OpenEXR\ImfPreviewImageAttribute.h" />
+    <ClInclude Include="OpenEXR\ImfPxr24Compressor.h" />
+    <ClInclude Include="OpenEXR\ImfRational.h" />
+    <ClInclude Include="OpenEXR\ImfRationalAttribute.h" />
+    <ClInclude Include="OpenEXR\ImfRgba.h" />
+    <ClInclude Include="OpenEXR\ImfRgbaFile.h" />
+    <ClInclude Include="OpenEXR\ImfRgbaYca.h" />
+    <ClInclude Include="OpenEXR\ImfRle.h" />
+    <ClInclude Include="OpenEXR\ImfRleCompressor.h" />
+    <ClInclude Include="OpenEXR\ImfScanLineInputFile.h" />
+    <ClInclude Include="OpenEXR\ImfSimd.h" />
+    <ClInclude Include="OpenEXR\ImfStandardAttributes.h" />
+    <ClInclude Include="OpenEXR\ImfStdIO.h" />
+    <ClInclude Include="OpenEXR\ImfStringAttribute.h" />
+    <ClInclude Include="OpenEXR\ImfStringVectorAttribute.h" />
+    <ClInclude Include="OpenEXR\ImfSystemSpecific.h" />
+    <ClInclude Include="OpenEXR\ImfTestFile.h" />
+    <ClInclude Include="OpenEXR\ImfThreading.h" />
+    <ClInclude Include="OpenEXR\ImfTileDescription.h" />
+    <ClInclude Include="OpenEXR\ImfTileDescriptionAttribute.h" />
+    <ClInclude Include="OpenEXR\ImfTiledInputFile.h" />
+    <ClInclude Include="OpenEXR\ImfTiledInputPart.h" />
+    <ClInclude Include="OpenEXR\ImfTiledMisc.h" />
+    <ClInclude Include="OpenEXR\ImfTiledOutputFile.h" />
+    <ClInclude Include="OpenEXR\ImfTiledOutputPart.h" />
+    <ClInclude Include="OpenEXR\ImfTiledRgbaFile.h" />
+    <ClInclude Include="OpenEXR\ImfTileOffsets.h" />
+    <ClInclude Include="OpenEXR\ImfTimeCode.h" />
+    <ClInclude Include="OpenEXR\ImfTimeCodeAttribute.h" />
+    <ClInclude Include="OpenEXR\ImfVecAttribute.h" />
+    <ClInclude Include="OpenEXR\ImfVersion.h" />
+    <ClInclude Include="OpenEXR\ImfWav.h" />
+    <ClInclude Include="OpenEXR\ImfXdr.h" />
+    <ClInclude Include="OpenEXR\ImfZip.h" />
+    <ClInclude Include="OpenEXR\ImfZipCompressor.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ZLib\ZLib.2017.vcxproj">

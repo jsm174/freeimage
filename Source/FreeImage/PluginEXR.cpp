@@ -28,16 +28,17 @@
 #pragma warning (disable : 4800) // ImfVersion.h - 'const int' : forcing value to bool 'true' or 'false' (performance warning)
 #endif 
 
-#include "../OpenEXR/IlmImf/ImfIO.h"
+#include "../OpenEXR/OpenEXR/ImfIO.h"
 #include "../OpenEXR/Iex/Iex.h"
-#include "../OpenEXR/IlmImf/ImfOutputFile.h"
-#include "../OpenEXR/IlmImf/ImfInputFile.h"
-#include "../OpenEXR/IlmImf/ImfRgbaFile.h"
-#include "../OpenEXR/IlmImf/ImfChannelList.h"
-#include "../OpenEXR/IlmImf/ImfRgba.h"
-#include "../OpenEXR/IlmImf/ImfArray.h"
-#include "../OpenEXR/IlmImf/ImfPreviewImage.h"
-#include "../OpenEXR/Half/half.h"
+#include "../OpenEXR/OpenEXR/ImfOutputFile.h"
+#include "../OpenEXR/OpenEXR/ImfInputFile.h"
+#include "../OpenEXR/OpenEXR/ImfRgbaFile.h"
+#include "../OpenEXR/OpenEXR/ImfChannelList.h"
+#include "../OpenEXR/OpenEXR/ImfRgba.h"
+#include "../OpenEXR/OpenEXR/ImfArray.h"
+#include "../OpenEXR/OpenEXR/ImfPreviewImage.h"
+#include "../OpenEXR/Imath/half.h"
+#include "../OpenEXR/Imath/ImathInt64.h"
 
 
 // ==========================================================
@@ -63,7 +64,7 @@ public:
 	}
 
 	virtual bool read (char c[/*n*/], int n) {
-		return ((unsigned)n != _io->read_proc(c, 1, n, _handle));
+		return ((unsigned)n == _io->read_proc(c, 1, n, _handle));
 	}
 
 	virtual Imath::Int64 tellg() {
@@ -397,13 +398,11 @@ Load(FreeImageIO *io, fi_handle handle, int page, int flags, void *data) {
 			// build a frame buffer (i.e. what we want on output)
 			Imf::FrameBuffer frameBuffer;
 
-			// allow dataWindow with minimal bounds different form zero
-			size_t offset = - dataWindow.min.x * bytespp - dataWindow.min.y * pitch;
-
 			if(components == 1) {
 				frameBuffer.insert ("Y",	// name
-					Imf::Slice (pixelType,	// type
-					(char*)(bits + offset), // base
+					Imf::Slice::Make(pixelType,	// type
+					bits,                   // base
+					dataWindow,				// datawindow
 					bytespp,				// xStride
 					pitch,					// yStride
 					1, 1,					// x/y sampling
@@ -414,8 +413,9 @@ Load(FreeImageIO *io, fi_handle handle, int page, int flags, void *data) {
 				for(int c = 0; c < components; c++) {
 					frameBuffer.insert (
 						channel_name[c],					// name
-						Imf::Slice (pixelType,				// type
-						(char*)(bits + c * sizeof(float) + offset), // base
+						Imf::Slice::Make(pixelType,			// type
+						bits + c * sizeof(float),           // base
+						dataWindow,					        // datawindow
 						bytespp,							// xStride
 						pitch,								// yStride
 						1, 1,								// x/y sampling
