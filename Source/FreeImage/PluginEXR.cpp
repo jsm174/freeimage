@@ -377,8 +377,8 @@ Load(FreeImageIO *io, fi_handle handle, int page, int flags, void *data) {
 				// fill the dib
 				const int y_max = ((dw.max.y - dw.min.y) <= chunk_size) ? (dw.max.y - dw.min.y) : chunk_size;
 				for(int y = 0; y < y_max; y++) {
-					FIRGBF *pixel = (FIRGBF*)scanline;
-					const Imf::Rgba *half_rgba = chunk[y];
+					FIRGBF * const __restrict pixel = (FIRGBF*)scanline;
+					const Imf::Rgba * const __restrict half_rgba = chunk[y];
 					for(int x = 0; x < width; x++) {
 						// convert from half to float
 						pixel[x].red = half_rgba[x].r;

@@ -39,12 +39,12 @@
 // Version string for runtime access
 //
 
-#define OPENEXR_VERSION_STRING "3.1.3"
-#define OPENEXR_PACKAGE_STRING "OpenEXR 3.1.3"
+#define OPENEXR_VERSION_STRING "3.1.11"
+#define OPENEXR_PACKAGE_STRING "OpenEXR 3.1.11"
 
 #define OPENEXR_VERSION_MAJOR 3
 #define OPENEXR_VERSION_MINOR 1
-#define OPENEXR_VERSION_PATCH 3
+#define OPENEXR_VERSION_PATCH 11
 #define OPENEXR_VERSION_RELEASE_TYPE ""
 // Deprecated, for back compatibility:
 #define OPENEXR_VERSION_EXTRA ""

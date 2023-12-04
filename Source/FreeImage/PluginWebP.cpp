@@ -284,29 +284,31 @@ DecodeImage(WebPData *webp_image, int flags) {
 		switch(bpp) {
 			case 24:
 				for(unsigned y = 0; y < height; y++) {
-					const BYTE *src_bits = src_bitmap + y * src_pitch;						
-					BYTE *dst_bits = (BYTE*)FreeImage_GetScanLine(dib, height-1-y);
-					for(unsigned x = 0; x < width; x++) {
+					const BYTE * const __restrict src_bits = src_bitmap + y * src_pitch;
+					BYTE * const __restrict dst_bits = (BYTE*)FreeImage_GetScanLine(dib, height-1-y);
+					memcpy(dst_bits, src_bits, width * 3);
+					/*for(unsigned x = 0; x < width; x++) {
 						dst_bits[FI_RGBA_BLUE]	= src_bits[0];	// B
 						dst_bits[FI_RGBA_GREEN]	= src_bits[1];	// G
 						dst_bits[FI_RGBA_RED]	= src_bits[2];	// R
 						src_bits += 3;
 						dst_bits += 3;
-					}
+					}*/
 				}
 				break;
 			case 32:
 				for(unsigned y = 0; y < height; y++) {
-					const BYTE *src_bits = src_bitmap + y * src_pitch;						
-					BYTE *dst_bits = (BYTE*)FreeImage_GetScanLine(dib, height-1-y);
-					for(unsigned x = 0; x < width; x++) {
+					const BYTE * const __restrict src_bits = src_bitmap + y * src_pitch;
+					BYTE * const __restrict dst_bits = (BYTE*)FreeImage_GetScanLine(dib, height-1-y);
+					memcpy(dst_bits, src_bits, width * 4);
+					/*for(unsigned x = 0; x < width; x++) {
 						dst_bits[FI_RGBA_BLUE]	= src_bits[0];	// B
 						dst_bits[FI_RGBA_GREEN]	= src_bits[1];	// G
 						dst_bits[FI_RGBA_RED]	= src_bits[2];	// R
 						dst_bits[FI_RGBA_ALPHA]	= src_bits[3];	// A
 						src_bits += 4;
 						dst_bits += 4;
-					}
+					}*/
 				}
 				break;
 		}

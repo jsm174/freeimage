@@ -43,12 +43,12 @@
 //
 // Version information
 //
-#define IMATH_VERSION_STRING "3.1.3"
-#define IMATH_PACKAGE_STRING "Imath 3.1.3"
+#define IMATH_VERSION_STRING "3.1.9"
+#define IMATH_PACKAGE_STRING "Imath 3.1.9"
 
 #define IMATH_VERSION_MAJOR 3
 #define IMATH_VERSION_MINOR 1
-#define IMATH_VERSION_PATCH 3
+#define IMATH_VERSION_PATCH 9
 #define IMATH_VERSION_RELEASE_TYPE ""
 
 #define IMATH_VERSION_HEX ((uint32_t(IMATH_VERSION_MAJOR) << 24) | \

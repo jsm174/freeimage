@@ -721,11 +721,10 @@ template <class T>
 Quat<T>
 extractQuat (const Matrix44<T>& mat)
 {
-    Matrix44<T> rot;
+    T       tr, s;
+    T       q[4];
+    int     i, j, k;
 
-    T tr, s;
-    T q[4];
-    int i, j, k;
     Quat<T> quat;
 
     int nxt[3] = { 1, 2, 0 };
@@ -1033,7 +1032,7 @@ addOffset (const Matrix44<T>& inMat,
     Matrix44<T> O;
 
     Vec3<T> _rOffset (rOffset);
-    _rOffset *= M_PI / 180.0;
+    _rOffset *= T(M_PI / 180.0);
     O.rotate (_rOffset);
 
     O[3][0] = tOffset[0];
@@ -1060,10 +1059,12 @@ Matrix44<T>
 computeRSMatrix (bool keepRotateA, bool keepScaleA, const Matrix44<T>& A, const Matrix44<T>& B)
 {
     Vec3<T> as, ah, ar, at;
-    extractSHRT (A, as, ah, ar, at);
+    if (!extractSHRT (A, as, ah, ar, at))
+        throw std::domain_error ("degenerate A matrix in computeRSMatrix");
 
     Vec3<T> bs, bh, br, bt;
-    extractSHRT (B, bs, bh, br, bt);
+    if (!extractSHRT (B, bs, bh, br, bt))
+        throw std::domain_error ("degenerate B matrix in computeRSMatrix");
 
     if (!keepRotateA)
         ar = br;
