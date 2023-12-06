@@ -133,6 +133,8 @@ FreeImage_MakeThumbnail(FIBITMAP *dib, int max_pixel_size, BOOL convert) {
 		case FIT_UINT16:
 		case FIT_RGB16:
 		case FIT_RGBA16:
+		case FIT_RGB16F:
+		case FIT_RGBA16F:
 		case FIT_FLOAT:
 		case FIT_RGBF:
 		case FIT_RGBAF:

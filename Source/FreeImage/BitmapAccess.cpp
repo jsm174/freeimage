@@ -353,9 +353,11 @@ FreeImage_AllocateBitmap(BOOL header_only, BYTE *ext_bits, unsigned ext_pitch, F
 			bpp = 8 * sizeof(FICOMPLEX);
 			break;
 		case FIT_RGB16:
+		case FIT_RGB16F:
 			bpp = 8 * sizeof(FIRGB16);
 			break;
 		case FIT_RGBA16:
+		case FIT_RGBA16F:
 			bpp = 8 * sizeof(FIRGBA16);
 			break;
 		case FIT_RGBF:
@@ -711,10 +713,12 @@ FreeImage_GetColorType(FIBITMAP *dib) {
 
 			case FIT_RGB16:
 			case FIT_RGBF:
+			case FIT_RGB16F:
 				return FIC_RGB;
 
 			case FIT_RGBA16:
 			case FIT_RGBAF:
+			case FIT_RGBA16F:
 				return (((FreeImage_GetICCProfile(dib)->flags) & FIICC_COLOR_IS_CMYK) == FIICC_COLOR_IS_CMYK) ? FIC_CMYK : FIC_RGBALPHA;
 		}
 

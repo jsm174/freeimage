@@ -184,6 +184,8 @@ Load(FreeImageIO *io, fi_handle handle, int page, int flags, void *data) {
 	try {
 		BOOL header_only = (flags & FIF_LOAD_NOPIXELS) == FIF_LOAD_NOPIXELS;
 
+		BOOL support_fp16 = (flags & EXR_ALLOW_FOR_FP16) == EXR_ALLOW_FOR_FP16;
+
 		// save the stream starting point
 		const long stream_start = io->tell_proc(handle);
 
@@ -305,7 +307,7 @@ Load(FreeImageIO *io, fi_handle handle, int page, int flags, void *data) {
 		}
 
 		// allocate a new dib
-		dib = FreeImage_AllocateHeaderT(header_only, image_type, width, height, 0);
+		dib = FreeImage_AllocateHeaderT(header_only, image_type == FIT_RGBF && (pixel_type == Imf::HALF || bUseRgbaInterface) && support_fp16 ? FIT_RGB16F : image_type == FIT_RGBAF && pixel_type == Imf::HALF && support_fp16 ? FIT_RGBA16F : image_type, width, height, 0);
 		if(!dib) THROW (Iex::NullExc, FI_MSG_ERROR_MEMORY);
 
 		// try to load the preview image
@@ -350,12 +352,12 @@ Load(FreeImageIO *io, fi_handle handle, int page, int flags, void *data) {
 		// load pixels
 		// --------------------------------------------------------------
 
+		const Imf::PixelType pixelType = (pixel_type == Imf::HALF || bUseRgbaInterface) && support_fp16 ? Imf::HALF : Imf::FLOAT;	// load as float data type;
+
 		const BYTE *bits = FreeImage_GetBits(dib);			// pointer to our pixel buffer
-		const size_t bytespp = sizeof(float) * components;	// size of our pixel in bytes
+		const size_t bytespp = (pixelType == Imf::HALF ? sizeof(uint16_t) : sizeof(float)) * components;	// size of our pixel in bytes
 		const unsigned pitch = FreeImage_GetPitch(dib);		// size of our yStride in bytes
 
-		Imf::PixelType pixelType = Imf::FLOAT;	// load as float data type;
-		
 		if(bUseRgbaInterface) {
 			// use the RGBA interface (used when loading RY BY Y images )
 
@@ -376,7 +378,20 @@ Load(FreeImageIO *io, fi_handle handle, int page, int flags, void *data) {
 				rgbaFile.readPixels (dw.min.y, MIN(dw.min.y + chunk_size - 1, dw.max.y));
 				// fill the dib
 				const int y_max = ((dw.max.y - dw.min.y) <= chunk_size) ? (dw.max.y - dw.min.y) : chunk_size;
-				for(int y = 0; y < y_max; y++) {
+				for(int y = 0; y < y_max; y++)
+				if(pixelType == Imf::HALF) {
+					tagFIRGB16* const __restrict pixel = (tagFIRGB16*)scanline;
+					const Imf::Rgba * const __restrict half_rgba = chunk[y];
+					for(int x = 0; x < width; x++) {
+						// convert from half to float
+						pixel[x].red = half_rgba[x].r.bits();
+						pixel[x].green = half_rgba[x].g.bits();
+						pixel[x].blue = half_rgba[x].b.bits();
+					}
+					// next line
+					scanline += pitch;
+				}
+				else {
 					FIRGBF * const __restrict pixel = (FIRGBF*)scanline;
 					const Imf::Rgba * const __restrict half_rgba = chunk[y];
 					for(int x = 0; x < width; x++) {
@@ -414,7 +429,7 @@ Load(FreeImageIO *io, fi_handle handle, int page, int flags, void *data) {
 					frameBuffer.insert (
 						channel_name[c],					// name
 						Imf::Slice::Make(pixelType,			// type
-						bits + c * sizeof(float),           // base
+						bits + c * (pixelType == Imf::HALF ? sizeof(uint16_t) : sizeof(float)), // base
 						dataWindow,					        // datawindow
 						bytespp,							// xStride
 						pitch,								// yStride
